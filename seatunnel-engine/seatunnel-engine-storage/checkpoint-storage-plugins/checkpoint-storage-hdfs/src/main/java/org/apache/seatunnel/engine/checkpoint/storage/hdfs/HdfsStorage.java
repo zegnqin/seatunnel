@@ -64,6 +64,8 @@ public class HdfsStorage extends AbstractCheckpointStorage {
             configuration.remove(STORAGE_NAME_SPACE);
         }
         Configuration hadoopConf = getConfiguration(configuration);
+        hadoopConf.addResource(new Path("/opt/usdp-srv/srv/udp/2.0.0.0/hdfs/etc/hadoop/core-site.xml"));
+        hadoopConf.addResource(new Path("/opt/usdp-srv/srv/udp/2.0.0.0/hdfs/etc/hadoop/hdfs-site.xml"));
         try {
             fs = FileSystem.get(hadoopConf);
         } catch (IOException e) {
@@ -358,7 +360,7 @@ public class HdfsStorage extends AbstractCheckpointStorage {
         fileName =
                 getStorageParentDirectory() + jobId + DEFAULT_CHECKPOINT_FILE_PATH_SPLIT + fileName;
         try (FSDataInputStream in = fs.open(new Path(fileName));
-                ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
+             ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
             IOUtils.copyBytes(in, stream, 1024);
             byte[] bytes = stream.toByteArray();
             return deserializeCheckPointData(bytes);
