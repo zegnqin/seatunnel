@@ -16,12 +16,14 @@
 #
 
 # JVM Heap
--Xms2g
--Xmx2g
+-Xms6g
+-Xmx6g
 
 # JVM Dump
 -XX:+HeapDumpOnOutOfMemoryError
 -XX:HeapDumpPath=/tmp/seatunnel/dump/zeta-server
 
 # Metaspace
--XX:MaxMetaspaceSize=2g
+-XX:MaxMetaspaceSize=3g
+
+# Metaspace
